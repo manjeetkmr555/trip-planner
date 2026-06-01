@@ -1,0 +1,19 @@
+services:
+  backend:
+    build: .
+    ports:
+      - "3001:3001"
+    env_file:
+      - .env
+    environment:
+      - PORT=3001
+      - DATABASE_PATH=/app/data/itineraries.db
+      - AI_PROVIDER=${AI_PROVIDER:-anthropic}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - ANTHROPIC_MODEL=${ANTHROPIC_MODEL:-claude-3-5-haiku-latest}
+    volumes:
+      - itinerary-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  itinerary-data:
